@@ -16,7 +16,11 @@ github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 
 # 4. Use API
 gtoken <- config(token = github_token)
-req <- GET("https://api.github.com/users/jtleek/repos", gtoken)
+#req <- GET("https://api.github.com/users/jtleek/repos", gtoken)
+req <- fromJSON("https://api.github.com/users/jtleek/repos", config(token = github_token))
 stop_for_status(req)
 content(req)
+y <- jsonlite::toJSON(req)
+subset(y, name=="datasharing")
+
 
